@@ -26,29 +26,49 @@ namespace SignalSlot
     class Property: public Signal<const T&>
     {
     public:
+        /**
+         * @brief Updates value of the property and emits change signal if new value is not the same as previous
+         * @note Requires implementation of == operator
+         */
         void set(const T& newValue) {
-            if (value != newValue) {
+            if (!value == newValue) {
                 value = newValue;
                 Signal<const T&>::emit(newValue);
             }
         }
 
+        /**
+         * @brief AssignmentSet new value
+         */
         const Property<T>& operator = (const T& src) {
             set(src);
             return *this;
         }
 
+        /**
+         * @brief Assignment from another property
+         */
         const Property<T>& operator = (const Property<T>& src) {
             return set(src.value);
         }
 
+        /**
+         * @brief Bind to another property, to apply it changes on this one
+         */
         void bind(Property<T>& src) {
             src.connect([this](const T& v) {
                 set(v);
             });
         }
 
+        /**
+         * @brief Allows to read value
+         */
         operator T () { return value; }
+
+        /**
+         * @brief Allows to read value
+         */
         T value;
     };
 }
