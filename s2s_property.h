@@ -31,7 +31,7 @@ namespace SignalSlot
          * @note Requires implementation of == operator
          */
         void set(const T& newValue) {
-            if (!value == newValue) {
+            if (!(value == newValue)) {
                 value = newValue;
                 Signal<const T&>::emit(newValue);
             }
