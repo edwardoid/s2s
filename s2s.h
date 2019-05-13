@@ -23,11 +23,36 @@
 
 namespace SignalSlot
 {
+    /*
+        Usage:
+
+        Signal<int> CountChanged;        
+
+        void connectForUpdates() {
+            ind IdOfSlot = CountChanged.conenct([](int newValue) {
+                // we've got net value!
+            });
+        }
+
+        void report() {
+            CountChanged(256);
+        }
+
+        void disconnectFromUpdates() {
+            CountChanged.disconnect(IdOfSlot);
+        }
+
+    */
     template<typename... Args>
     class Signal
     {
     public:
         using Slot = std::function<void(Args... args)>;
+
+        void operator() (Args... args) {
+            emit(args...);
+        }
+
         void emit(Args... args) {
             for(const auto& s : m_slots) {
                 s.second(args...);
