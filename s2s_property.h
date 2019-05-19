@@ -30,11 +30,12 @@ namespace SignalSlot
          * @brief Updates value of the property and emits change signal if new value is not the same as previous
          * @note Requires implementation of == operator
          */
-        void set(const T& newValue) {
+        const T& set(const T& newValue) {
             if (!(value == newValue)) {
                 value = newValue;
                 Signal<const T&>::emit(newValue);
             }
+            return value;
         }
 
         /**

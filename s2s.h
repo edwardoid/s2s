@@ -54,6 +54,9 @@ namespace SignalSlot
         }
 
         void emit(Args... args) {
+            if (m_block) {
+                return;
+            }
             for(const auto& s : m_slots) {
                 s.second(args...);
             }
@@ -76,8 +79,13 @@ namespace SignalSlot
         void disconnect(int id) {
             m_slots.erase(id);
         }
+
+        void blockSignals(bool block) {
+            m_block = block;
+        }
     private:
         int IDX = 0;
+        bool m_block = false;
         std::map<int, Slot> m_slots;
     };
 }
