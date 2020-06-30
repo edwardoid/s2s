@@ -1,6 +1,6 @@
 /* 
  * This file is part of the S2S distribution (https://github.com/edwardoid/s2s).
- * Copyright (c) 2019 Edward Sargsyan.
+ * Copyright (c) 2020 Edward Sargsyan.
  * 
  * This program is free software: you can redistribute it and/or modify  
  * it under the terms of the GNU General Public License as published by  
@@ -68,7 +68,6 @@ namespace SignalSlot
         operator T () { return value; }
 
         T* operator -> () { return &value; }
-
         /**
          * @brief Allows to read value
          */
