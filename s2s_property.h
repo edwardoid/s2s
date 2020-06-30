@@ -56,7 +56,7 @@ namespace SignalSlot
         /**
          * @brief Bind to another property, to apply it changes on this one
          */
-        void bind(Property<T>& src) {
+        void bind(Signal<T>& src) {
             src.connect([this](const T& v) {
                 set(v);
             });
@@ -66,6 +66,8 @@ namespace SignalSlot
          * @brief Allows to read value
          */
         operator T () { return value; }
+
+        T* operator -> () { return &value; }
 
         /**
          * @brief Allows to read value
