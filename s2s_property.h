@@ -26,6 +26,10 @@ namespace SignalSlot
     class Property: public Signal<const T&>
     {
     public:
+        Property(const T& val = T())
+        {
+            value = val;
+        }
         /**
          * @brief Updates value of the property and emits change signal if new value is not the same as previous
          * @note Requires implementation of == operator
