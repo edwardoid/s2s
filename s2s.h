@@ -63,15 +63,12 @@ namespace SignalSlot
         }
 
         int connect(Slot&& slot) {
-            if (IDX == 0) {
-                ++IDX;
-            }
-            m_slots.emplace(IDX, slot);
-            return IDX;
+            m_slots.emplace(IDX++, slot);
+            return IDX - 1;
         }
 
-        void connect(Signal<Args...>& signal) {
-            connect([&signal](Args... args) {
+        int connect(Signal<Args...>& signal) {
+            return connect([&signal](Args... args) {
                 signal.emit(args...);
             });
         }
